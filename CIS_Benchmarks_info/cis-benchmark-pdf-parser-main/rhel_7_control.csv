@@ -1,0 +1,219 @@
+Rule,Profile Applicability,Description,Rationale,Audit,Remediation,Default Value,CIS Controls
+,,,,,"Run the following script to unload and disable the cramfs module: 
+- IF - the cramfs kernel module is available in ANY installed kernel: 
+• 
+Create a file ending in .conf with install cramfs /bin/false in the 
+/etc/modprobe.d/ directory 
+• 
+Create a file ending in .conf with blacklist cramfs in the /etc/modprobe.d/ 
+directory 
+• 
+Run modprobe -r cramfs 2>/dev/null; rmmod cramfs 2>/dev/null to 
+remove cramfs from the kernel 
+- IF - the cramfs kernel module is not available on the system, or pre-compiled into the 
+kernel, no remediation is necessary",,
+,,,,,"Run the following script to unload and disable the freevxfs module: 
+- IF - the freevxfs kernel module is available in ANY installed kernel: 
+• 
+Create a file ending in .conf with install freevxfs /bin/false in the 
+/etc/modprobe.d/ directory 
+• 
+Create a file ending in .conf with blacklist freevxfs in the 
+/etc/modprobe.d/ directory 
+• 
+Run modprobe -r freevxfs 2>/dev/null; rmmod freevxfs 2>/dev/null 
+to remove freevxfs from the kernel 
+- IF - the freevxfs kernel module is not available on the system, or pre-compiled into 
+the kernel, no remediation is necessary",,
+,,,,,"Run the following script to unload and disable the hfs module: 
+- IF - the hfs kernel module is available in ANY installed kernel: 
+• 
+Create a file ending in .conf with install hfs /bin/false in the 
+/etc/modprobe.d/ directory 
+• 
+Create a file ending in .conf with blacklist hfs in the /etc/modprobe.d/ 
+directory 
+• 
+Run modprobe -r hfs 2>/dev/null; rmmod hfs 2>/dev/null to remove 
+hfs from the kernel 
+- IF - the hfs kernel module is not available on the system, or pre-compiled into the 
+kernel, no remediation is necessary",,
+,,,,,"Run the following script to unload and disable the hfsplus module: 
+- IF - the hfsplus kernel module is available in ANY installed kernel: 
+• 
+Create a file ending in .conf with install hfsplus /bin/false in the 
+/etc/modprobe.d/ directory 
+• 
+Create a file ending in .conf with blacklist hfsplus in the 
+/etc/modprobe.d/ directory 
+• 
+Run modprobe -r hfsplus 2>/dev/null; rmmod hfsplus 2>/dev/null to 
+remove hfsplus from the kernel 
+- IF - the hfsplus kernel module is not available on the system, or pre-compiled into the 
+kernel, no remediation is necessary",,
+,,,,,"Run the following script to unload and disable the jffs2 module: 
+- IF - the jffs2 kernel module is available in ANY installed kernel: 
+• 
+Create a file ending in .conf with install jffs2 /bin/false in the 
+/etc/modprobe.d/ directory 
+• 
+Create a file ending in .conf with blacklist jffs2 in the /etc/modprobe.d/ 
+directory 
+• 
+Run modprobe -r jffs2 2>/dev/null; rmmod jffs2 2>/dev/null to 
+remove jffs2 from the kernel 
+- IF - the jffs2 kernel module is not available on the system, or pre-compiled into the 
+kernel, no remediation is necessary",,
+,,,,,"Run the following script to unload and disable the udf module: 
+- IF - the squashfs kernel module is available in ANY installed kernel: 
+• 
+Create a file ending in .conf with install squashfs /bin/false in the 
+/etc/modprobe.d/ directory 
+• 
+Create a file ending in .conf with blacklist squashfs in the 
+/etc/modprobe.d/ directory 
+• 
+Run modprobe -r squashfs 2>/dev/null; rmmod squashfs 2>/dev/null 
+to remove squashfs from the kernel 
+- IF - the squashfs kernel module is not available on the system, or pre-compiled into 
+the kernel, no remediation is necessary",,
+,,,,,"Run the following script to unload and disable the udf module: 
+- IF - the udf kernel module is available in ANY installed kernel: 
+• 
+Create a file ending in .conf with install udf /bin/false in the 
+/etc/modprobe.d/ directory 
+• 
+Create a file ending in .conf with blacklist udf in the /etc/modprobe.d/ 
+directory 
+• 
+Run modprobe -r udf 2>/dev/null; rmmod udf 2>/dev/null to remove 
+udf from the kernel 
+- IF - the udf kernel module is not available on the system, or pre-compiled into the 
+kernel, no remediation is necessary",,
+,,,,,"Run the following script to unload and disable the usb-storage module: 
+- IF - the usb-storage kernel module is available in ANY installed kernel: 
+• 
+Create a file ending in .conf with install usb-storage /bin/false in the 
+/etc/modprobe.d/ directory 
+• 
+Create a file ending in .conf with blacklist usb-storage in the 
+/etc/modprobe.d/ directory 
+• 
+Run modprobe -r usb-storage 2>/dev/null; rmmod usb-storage 
+2>/dev/null to remove usb-storage from the kernel 
+- IF - the usb-storage kernel module is not available on the system, or pre-compiled 
+into the kernel, no remediation is necessary",,
+,,,,,"- IF - the module is available in the running kernel: 
+• 
+Unload the filesystem kernel module from the kernel 
+• 
+Create a file ending in .conf with install filesystem kernel modules /bin/false 
+in the /etc/modprobe.d/ directory 
+• 
+Create a file ending in .conf with deny list filesystem kernel modules in the 
+/etc/modprobe.d/ directory 
+WARNING: unloading, disabling or denylisting filesystem modules that are in use on the 
+system maybe FATAL. It is extremely important to thoroughly review the filesystems 
+returned by the audit before following the remediation procedure. 
+Example of unloading the gfs2kernel module: 
+# modprobe -r gfs2 2>/dev/null 
+# rmmod gfs2 2>/dev/null 
+Example of fully disabling the gfs2 kernel module: 
+# printf '%s\n' ""blacklist gfs2"" ""install gfs2 /bin/false"" >> 
+/etc/modprobe.d/gfs2.conf 
+Note: 
+• 
+Disabling a kernel module by modifying the command above for each unused 
+filesystem kernel module 
+• 
+The example gfs2 must be updated with the appropriate module name for the 
+command or example script below to run correctly. 
+Below is an example Script that can be modified to use on various filesystem 
+kernel modules manual remediation process: 
+Example Script",,
+,,,,"Run the following command and verify the output shows that /tmp is mounted. 
+Particular requirements pertaining to mount options are covered in ensuing sections. 
+# findmnt -kn /tmp 
+Example output: 
+/tmp   tmpfs  tmpfs  rw,nosuid,nodev,noexec 
+Ensure that systemd will mount the /tmp partition at boot time. 
+# systemctl is-enabled tmp.mount 
+Example output: 
+generated 
+Verify output is not masked or disabled. 
+Note: By default, systemd will output generated if there is an entry in /etc/fstab for 
+/tmp. This just means systemd will use the entry in /etc/fstab instead of its default 
+unit file configuration for /tmp.","First ensure that systemd is correctly configured to ensure that /tmp will be mounted at 
+boot time. 
+# systemctl unmask tmp.mount 
+For specific configuration requirements of the /tmp mount for your environment, modify 
+/etc/fstab. 
+Example of using tmpfs with specific mount options: 
+tmpfs 
+/tmp 
+tmpfs     defaults,rw,nosuid,nodev,noexec,relatime,size=2G  0 
+0 
+Note: the size=2G is an example of setting a specific size for tmpfs. 
+Example of using a volume or disk with specific mount options. The source location of 
+the volume or disk will vary depending on your environment: 
+<device> /tmp    <fstype>    defaults,nodev,nosuid,noexec   0 0 
+References: 
+1. https://www.freedesktop.org/wiki/Software/systemd/APIFileSystems/ 
+2. https://www.freedesktop.org/software/systemd/man/systemd-fstab-generator.html 
+3. https://www.kernel.org/doc/Documentation/filesystems/tmpfs.txt 
+4. NIST SP 800-53 Rev. 5: CM-7",,
+1.1.2.1.2 Ensure nodev option set on /tmp partition (Automated)," Level 1 - Server 
+ Level 1 - Workstation",The nodev mount option specifies that the filesystem cannot contain special devices.,"Since the /tmp filesystem is not intended to support devices, set this option to ensure 
+that users cannot create a block or character special devices in /tmp.","- IF - a separate partition exists for /tmp, verify that the nodev option is set. 
+Run the following command to verify that the nodev mount option is set. 
+Example: 
+# findmnt -kn /tmp | grep -v nodev 
+ 
+Nothing should be returned","- IF - a separate partition exists for /tmp. 
+Edit the /etc/fstab file and add nodev to the fourth field (mounting options) for the 
+/tmp partition. 
+Example: 
+<device> /tmp    <fstype>     defaults,rw,nosuid,nodev,noexec,relatime  0 0 
+Run the following command to remount /tmp with the configured options: 
+# mount -o remount /tmp 
+References: 
+1. See the fstab(5) manual page for more information. 
+2. NIST SP 800-53 Rev. 5: CM-7",,
+1.1.2.1.3 Ensure nosuid option set on /tmp partition (Automated)," Level 1 - Server 
+ Level 1 - Workstation",The nosuid mount option specifies that the filesystem cannot contain setuid files.,"Since the /tmp filesystem is only intended for temporary file storage, set this option to 
+ensure that users cannot create setuid files in /tmp.","- IF - a separate partition exists for /tmp, verify that the nosuid option is set. 
+Run the following command to verify that the nosuid mount option is set. 
+Example: 
+# findmnt -kn /tmp | grep -v nosuid 
+ 
+Nothing should be returned","- IF - a separate partition exists for /tmp. 
+Edit the /etc/fstab file and add nosuid to the fourth field (mounting options) for the 
+/tmp partition. 
+Example: 
+<device> /tmp    <fstype>     defaults,rw,nosuid,nodev,noexec,relatime  0 0 
+Run the following command to remount /tmp with the configured options: 
+# mount -o remount /tmp 
+References: 
+1. See the fstab(5) manual page for more information. 
+2. NIST SP 800-53 Rev. 5: AC-3, MP-2",,
+1.1.2.1.4 Ensure noexec option set on /tmp partition (Automated)," Level 1 - Server 
+ Level 1 - Workstation","The noexec mount option specifies that the filesystem cannot contain executable 
+binaries.","Since the /tmp filesystem is only intended for temporary file storage, set this option to 
+ensure that users cannot run executable binaries from /tmp. 
+Impact: 
+Setting the noexec option on /tmp may prevent installation and/or updating of some 3rd 
+party software.","- IF - a separate partition exists for /tmp, verify that the noexec option is set. 
+Run the following command to verify that the noexec mount option is set. 
+Example: 
+# findmnt -kn /tmp | grep -v noexec 
+ 
+Nothing should be returned","- IF - a separate partition exists for /tmp. 
+Edit the /etc/fstab file and add noexec to the fourth field (mounting options) for the 
+/tmp partition. 
+Example: 
+<device> /tmp    <fstype>     defaults,rw,nosuid,nodev,noexec,relatime  0 0 
+Run the following command to remount /tmp with the configured options: 
+# mount -o remount /tmp 
+References: 
+1. See the fstab(5) manual page for more information. 
+2. NIST SP 800-53 Rev. 5: AC-3, MP-2",,
